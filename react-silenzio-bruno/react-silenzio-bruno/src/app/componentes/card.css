@@ -1,0 +1,46 @@
+
+.pelicula-container {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 10px;
+  margin-bottom: 20px;
+  background-color: #f9f9f9;
+  width: 300px;
+}
+
+.pelicula-img {
+  width:  50%;
+  height: auto;
+  border-radius: 5px;
+}
+
+.pelicula-info {
+  padding: 10px;
+}
+
+.pelicula-info h3 {
+  margin-top: 0;
+  margin-bottom: 10px;
+}
+
+.pelicula-info p {
+  margin-bottom: 5px;
+}
+
+.generos {
+  margin-top: 10px;
+}
+
+.generos h5 {
+  margin-bottom: 5px;
+}
+
+.generos ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.generos ul li {
+  margin-bottom: 5px;
+}
