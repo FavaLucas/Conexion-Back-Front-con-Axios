@@ -5,9 +5,10 @@ import { PeliculaController } from './controllers/pelicula.controller';
 import { PeliculaService } from './services/pelicula.service';
 import { LoginController } from './controllers/login.controller';
 import { LoginService } from './services/login.service';
+import { JwtService } from '@nestjs/jwt';
 
 @Module({
-  imports: [],
+  imports: [JwtService],
   controllers: [AppController, PeliculaController, LoginController],
   providers: [AppService, PeliculaService, LoginService],
 })

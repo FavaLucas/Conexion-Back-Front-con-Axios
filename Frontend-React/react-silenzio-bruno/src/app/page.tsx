@@ -1,6 +1,7 @@
 'use client'
 import { deletePeliculaById, getPeliculas } from '../app/services/Peliculas';
 import { Formulario } from '../app/componentes/form'
+import { Login } from './componentes/login';
 import { IPelicula } from './interfaces/ipelicula';
 import { useEffect, useState } from 'react';
 import { PeliculaCard } from './componentes/CardPelicula';
@@ -75,6 +76,10 @@ export default function Home() {
       
       <div>
         <FormularioEliminar/>
+      </div>
+
+      <div>
+        <Login/>
       </div>
 
     </>

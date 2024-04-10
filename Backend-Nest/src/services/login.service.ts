@@ -2,7 +2,8 @@
 import { Injectable } from "@nestjs/common";
 import { JwtService } from "@nestjs/jwt";
 import * as bcrypt from 'bcryptjs'
-import { AnyMxRecord } from "dns";
+import { iUsuarioDto } from "src/dto/usuario.dto";
+
 
 
 let passAlmacenado = '';
@@ -10,9 +11,9 @@ let passAlmacenado = '';
 
 @Injectable()
 export class LoginService {
-  salt: string ="asdasd3211654as3d2a1s";
+  salt: string = "asdasd3211654as3d2a1s";
   lucasHash: string;
-  constructor(private jwtService: JwtService) { 
+  constructor(private jwtService: JwtService) {
     this.genSalt();
   }
 
@@ -37,8 +38,8 @@ export class LoginService {
     return null;
   }
 
-  login(user: any) {
-    const payload = { usuario: user };
+  login(user: iUsuarioDto) {
+    const payload = { user };
     return {
       accessToken: this.jwtService.sign(payload),
     }

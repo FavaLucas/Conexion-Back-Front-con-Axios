@@ -1,6 +1,5 @@
-
 export class iPeliculaDto {
-  id:number;
+  id?:number;
   titulo?: string;
   reparto?: string[];
   generos?: string[];

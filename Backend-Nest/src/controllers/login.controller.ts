@@ -1,4 +1,4 @@
-import {  Body, Controller, HttpException, HttpStatus, Post } from "@nestjs/common";
+import { Body, Controller, HttpException, HttpStatus, Post } from "@nestjs/common";
 import { LoginService } from "src/services/login.service";
 import * as bcrypt from 'bcryptjs'
 
@@ -8,13 +8,11 @@ export class LoginController {
   constructor(private loginService: LoginService) { }
 
   @Post('login')
-  async login(@Body() body: {username: string, password: string}) {
+  async login(@Body() body: { username: string, password: string }) {
     const user = await this.loginService.validateUser(body.username, body.password);
     if (!user) {
       throw new HttpException('No autorizado', HttpStatus.UNAUTHORIZED);
     }
     return this.loginService.login(user);
   }
-
-
 }

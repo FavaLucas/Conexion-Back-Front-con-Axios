@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { modificarPelicula } from '../services/Peliculas';
+import { deletePeliculaById } from '../services/Peliculas';
 import './form.css';
 
 export function FormularioEliminar() {
@@ -18,8 +18,7 @@ export function FormularioEliminar() {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(formData);
-    modificarPelicula(formData)
-
+    deletePeliculaById(formData);
   };
 
   return (

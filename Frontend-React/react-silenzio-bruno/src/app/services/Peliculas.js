@@ -10,7 +10,7 @@ export const getPeliculas = async () => {
     console.log(error);
   }
 }
-export const deletePeliculaById = async () => {
+export const deletePeliculaById = async (DTO) => {
   try {
     const response = await Promise.resolve(clienteAxios.delete("http://localhost:8080/api/peliculas", DTO));
     console.log(response);
@@ -19,17 +19,24 @@ export const deletePeliculaById = async () => {
     console.log(error);
   }
 }
-  export const modificarPelicula = async (DTO) => {
-    try {
-      const response = await Promise.resolve(clienteAxios.patch("http://localhost:8080/api/peliculas", DTO
-    ));
-      console.log(response);
-      return response;
-    } catch (error) {
-      console.log(error);
-    }
-
-  
+export const modificarPelicula = async (DTO) => {
+  try {
+    const response = await Promise.resolve(clienteAxios.patch("http://localhost:8080/api/peliculas", DTO));
+    console.log(response);
+    return response;
+  } catch (error) {
+    console.log(error);
   }
+}
+export const loginUser = async (usuario) => {
+  try {
+    const response = await Promise.response(clienteAxios.post("http://localhost:8080/api/peliculas", usuario));
+    console.log(response);
+    return response;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
 
 

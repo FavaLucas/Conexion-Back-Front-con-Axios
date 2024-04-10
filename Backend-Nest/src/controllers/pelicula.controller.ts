@@ -15,15 +15,15 @@ export class PeliculaController {
   @Delete()
   deletePeliculasById(@Body() peliDTO: iPeliculaDto): iPelicula[] {
     try {
-        return this.peliculaService.deletePeliculasById(peliDTO);
+      return this.peliculaService.deletePeliculasById(peliDTO);
     } catch (error) {
-        console.log(error)
+      console.log(error)
     }
-}
+  }
 
-@Patch()
-actualizarPelicula(@Body() peliDTO: iPeliculaDto): iPelicula {
+  @Patch()
+  actualizarPelicula(@Body() peliDTO: iPeliculaDto): iPelicula {
     console.log(this.peliculaService.actualizarPelicula(peliDTO));
     return this.peliculaService.actualizarPelicula(peliDTO);
-}
+  }
 }
