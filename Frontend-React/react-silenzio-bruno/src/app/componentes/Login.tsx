@@ -5,7 +5,7 @@ import { loginUser } from '../services/Peliculas';
 
 export const Login = () => {
   const [usuario, setUsuario] = useState({
-    user: '',
+    username: '',
     password: '',
   });
 
@@ -30,7 +30,7 @@ export const Login = () => {
     <form onSubmit={handleSubmit}>
       <label className="label">
         <h2>Login</h2>
-        <input type="string" name="user" value={usuario.user} onChange={handleChange} className="input" />
+        <input type="string" name="user" value={usuario.username} onChange={handleChange} className="input" />
         <input type="string" name="password" value={usuario.password} onChange={handleChange} className="input" />
       </label>
       <br />

@@ -3,7 +3,7 @@ import { LoginService } from "src/services/login.service";
 import * as bcrypt from 'bcryptjs'
 
 
-@Controller('/login')
+@Controller('/auth')
 export class LoginController {
   constructor(private loginService: LoginService) { }
 

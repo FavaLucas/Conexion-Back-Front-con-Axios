@@ -4,8 +4,6 @@ import { JwtService } from "@nestjs/jwt";
 import * as bcrypt from 'bcryptjs'
 import { iUsuarioDto } from "src/dto/usuario.dto";
 
-
-
 let passAlmacenado = '';
 // bcrypt.hash('lucas', 8).then((valor) => (passAlmacenado = valor));
 
@@ -13,29 +11,23 @@ let passAlmacenado = '';
 export class LoginService {
   salt: string = "asdasd3211654as3d2a1s";
   lucasHash: string;
-  constructor(private jwtService: JwtService) {
-    this.genSalt();
-  }
+  constructor(private jwtService: JwtService) { }
 
-  async genSalt() {
-    this.lucasHash = await bcrypt.hash('lucas', this.salt);
-  }
 
   async validateUser(username: string, password: string): Promise<any> {
-    //obtener de la base de datos el usuario lucas
-    if (username === 'lucas') {
-      const passEncriptado = await bcrypt.hash(password, this.salt);
-      if (this.lucasHash == passEncriptado) {
-        // retorno el objeto usuario
-        return {
-          username: username,
-          role: 'ADMIN',
-          nombre: 'Lucas Fava',
-        }
+    if (username === 'lucas' && password === 'lucas') {
+      return {
+        username: 'lucas',
+        roles: ['Admin']
       };
-      return null;
     }
-    return null;
+    if (username === 'kevin' && password === 'kevin') {
+      return {
+        username: 'kevin',
+        roles: ['User', 'Reg-latam'],
+      }
+    };
+    return false;
   }
 
   login(user: iUsuarioDto) {
@@ -45,3 +37,5 @@ export class LoginService {
     }
   }
 }
+
+

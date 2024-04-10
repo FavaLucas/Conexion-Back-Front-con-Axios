@@ -30,7 +30,7 @@ export const modificarPelicula = async (DTO) => {
 }
 export const loginUser = async (usuario) => {
   try {
-    const response = await Promise.response(clienteAxios.post("http://localhost:8080/api/peliculas", usuario));
+    const response = await Promise.response(clienteAxios.post("http://localhost:8080/auth/login", usuario));
     console.log(response);
     return response;
   } catch (error) {
