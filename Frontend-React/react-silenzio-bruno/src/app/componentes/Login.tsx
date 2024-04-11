@@ -9,15 +9,17 @@ export const Login = () => {
     password: '',
   });
 
-  const handleChange = (e) => {
+  const handleChange = (e: any) => {
     const { name, value } = e.target;
+    console.log(name);
+    console.log(value);
     setUsuario(prevState => ({
       ...prevState,
       [name]: value
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: any) => {
     e.preventDefault();
     console.log(usuario);
     // Login del Peliucas.JS
@@ -27,12 +29,13 @@ export const Login = () => {
 
   return (
     <>
+      
     <form onSubmit={handleSubmit}>
-      <label className="label">
         <h2>Login</h2>
-        <input type="string" name="user" value={usuario.username} onChange={handleChange} className="input" />
-        <input type="string" name="password" value={usuario.password} onChange={handleChange} className="input" />
-      </label>
+        {/* <input type="number" onChange={handleChange} /> */}
+        <input type="text" name="username" value={usuario.username} onChange={handleChange} className="input" />
+        <input type="text" name="password" value={usuario.password} onChange={handleChange} className="input" />
+      
       <br />
       <button type="submit" className="submit-button">Enviar</button>
     </form>
