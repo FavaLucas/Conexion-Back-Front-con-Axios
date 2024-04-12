@@ -15,6 +15,7 @@ export class LoginService {
 
 
   async validateUser(username: string, password: string): Promise<any> {
+    // Aca luego vamos a modificar por que desde una base de datos buscaremos el usr y pass y lo controlaremos vs el que nos llega.
     if (username === 'lucas' && password === 'lucas') {
       return {
         username: 'lucas',

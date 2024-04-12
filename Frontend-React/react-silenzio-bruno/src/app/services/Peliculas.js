@@ -3,7 +3,8 @@ import clienteAxios from './Axios.js';
 
 export const getPeliculas = async () => {
   try {
-    const response = await Promise.resolve(clienteAxios.get('/peliculas'));
+    const response = await Promise.resolve(clienteAxios.get('/peliculas', {headers: { Authorization: `bearer ${sessionStorage.getItem('token')}` }
+    }));
     console.log(response);
     return response;
   } catch (error) {
@@ -31,6 +32,7 @@ export const modificarPelicula = async (DTO) => {
 export const loginUser = async (usuario) => {
   try {
     const response = await Promise.resolve(clienteAxios.post("http://localhost:8080/auth/login", usuario));
+    sessionStorage.setItem('token', response.data.accessToken);
     console.log(response);
     console.log("Llegamos aca");
     return response;

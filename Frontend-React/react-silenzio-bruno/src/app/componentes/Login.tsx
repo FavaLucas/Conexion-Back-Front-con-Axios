@@ -1,6 +1,6 @@
 import './login.css';
 import React, { useState } from 'react'
-import { loginUser } from '../services/Peliculas';
+import { getPeliculas, loginUser } from '../services/Peliculas';
 
 
 export const Login = () => {
@@ -37,7 +37,7 @@ export const Login = () => {
         <input type="text" name="password" value={usuario.password} onChange={handleChange} className="input" />
       
       <br />
-      <button type="submit" className="submit-button">Enviar</button>
+      <button type="submit" className="submit-button" onClick={getPeliculas}>Enviar</button>
     </form>
     </>
 
