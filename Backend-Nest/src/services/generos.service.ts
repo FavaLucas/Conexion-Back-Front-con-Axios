@@ -15,19 +15,18 @@ export class GenerosService {
     const resultGenero = resultQuery.map((rs: RowDataPacket) => {
       return {
         generoId: rs['generoId'],
-        nombre: rs['nombre'],
+        nombreGenero: rs['nombre'],
       };
     });
     return resultGenero;
   };
 
-
   async crearGenero(genero: iGenero): Promise<iGenero> {
-    const resultQuery: ResultSetHeader = await this.dbService.executeQuery(generosQueries.insert, [genero.nombre]);
+    const resultQuery: ResultSetHeader = await this.dbService.executeQuery(generosQueries.insert, [genero.generoId, genero.nombreGenero]);
 
     return {
       generoId: resultQuery.insertId,
-      nombre: genero.nombre,
+      nombreGenero: genero.nombreGenero,
     };
   };
 }

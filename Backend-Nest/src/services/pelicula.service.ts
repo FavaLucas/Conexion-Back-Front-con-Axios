@@ -1,5 +1,10 @@
 import { Injectable } from "@nestjs/common";
 import { iPelicula } from "src/modules/iPelicula.module";
+import { iPeliculas } from "src/modules/iPelicula.dto";
+import { ResultSetHeader, RowDataPacket } from "mysql2";
+import peliculasQueries from "./queries/peliculas.queries";
+import { DatabaseService } from './db.services';
+
 
 
 let peliculasDB = [
@@ -97,14 +102,16 @@ let peliculasDB = [
 
 @Injectable()
 export class PeliculaService {
+  constructor(private dbService: DatabaseService) { }
+
   getPeliculas(): iPelicula[] {
     return peliculasDB
   }
 
-  deletePeliculasById(peliDTO):iPelicula[] {
-    const id=peliDTO.id;
+  deletePeliculasById(peliDTO): iPelicula[] {
+    const id = peliDTO.id;
     console.log(id)
-    let peliculas = peliculasDB.filter((pl)=> pl.id != id);
+    let peliculas = peliculasDB.filter((pl) => pl.id != id);
     console.log(peliculas)
     return peliculas;
   }
@@ -121,12 +128,68 @@ export class PeliculaService {
         peliEncontrada.imagen = peliDTO.imagen ? peliDTO.imagen : peliEncontrada.imagen;
         peliEncontrada.duracion = peliDTO.duracion ? peliDTO.duracion : peliEncontrada.duracion;
         peliEncontrada.fechaDeLanzamiento = peliDTO.fechaDeLanzamiento ? peliDTO.fechaDeLanzamiento : peliEncontrada.fechaDeLanzamiento;
-        
+
         return peliEncontrada;
       }
     } catch (error) {
-      console.log(error,'no de encontro')
+      console.log(error, 'no de encontro')
     }
   }
-  
+
+  async crearPelicula(pelicula: iPeliculas): Promise<iPeliculas> {
+    const resultQuery: ResultSetHeader = await this.dbService.executeQuery(peliculasQueries.insert, [pelicula.peliculaId, pelicula.titulo, pelicula.sinopsis, pelicula.imagen, pelicula.duracion, pelicula.fechaLanzamiento]);
+
+    return {
+      peliculaId: resultQuery.insertId,
+      titulo: pelicula.titulo,
+      sinopsis: pelicula.sinopsis,
+      imagen: pelicula.imagen,
+      duracion: pelicula.duracion,
+      fechaLanzamiento: pelicula.fechaLanzamiento,
+
+      // generoId: resultQuery.insertId,
+      // nombreGenero: genero.nombreGenero,
+    };
+  };
+
+  async getAllPeliculas(): Promise<iPeliculas[]> {
+    const resultQuery: RowDataPacket[] = await this.dbService.executeSelect(peliculasQueries.selectAll, []);
+    const resultPeliculas = resultQuery.map((rs: RowDataPacket) => {
+      return {
+        peliculaId: rs['peliculaId'],
+        titulo: rs['titulo'],
+        sinopsis: rs['sinopsis'],
+        imagen: rs['imagen'],
+        duracion: rs['duracion'],
+        fechaLanzamiento: rs['fechaLanzamiento'],
+      };
+    });
+    return resultPeliculas;
+  };
+
+
+  // con.query("SELECT * FROM customers WHERE address = 'Park Lane 38'", function (err, result) {
+  //   if (err) throw err;
+  //   console.log(result);
+  // });
+
+  async getPeliculaById(idBuscado: any): Promise<iPeliculas[]> {
+    const resultQuery: RowDataPacket[] = await this.dbService.executeSelect(peliculasQueries.selectById, [idBuscado]);
+    const resultPeliculas = resultQuery.map((rs: RowDataPacket) => {
+      if (rs.peliculaId = idBuscado) {
+        return {
+          peliculaId: rs['peliculaId'],
+          titulo: rs['titulo'],
+          sinopsis: rs['sinopsis'],
+          imagen: rs['imagen'],
+          duracion: rs['duracion'],
+          fechaLanzamiento: rs['fechaLanzamiento'],
+        };
+      } else {
+        console.log("asdasdasdas")
+      };
+    });
+    return resultPeliculas;
+  };
+
 }

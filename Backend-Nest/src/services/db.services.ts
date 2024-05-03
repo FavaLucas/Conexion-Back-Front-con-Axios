@@ -8,7 +8,7 @@ export class DatabaseService {
   constructor() {
     this.pool = createPool({
       port: 3306,
-      database: 'plataformapeliculas',
+      database: 'plataforma_peliculas',
       password: 'root123',
       host: 'localhost',
       user: 'root',
