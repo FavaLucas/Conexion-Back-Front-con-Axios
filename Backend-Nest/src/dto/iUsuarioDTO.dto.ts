@@ -1,4 +1,4 @@
-export interface iUsuarioDto {
+export interface iUsuarioDTO {
   id?:number;
   user?: string; 
   password?: string;

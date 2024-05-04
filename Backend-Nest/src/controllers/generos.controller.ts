@@ -1,21 +1,20 @@
-import { Body, Controller, Post, Get } from "@nestjs/common";
-import { iPelicula } from "src/modules/iPelicula.module";
-import { PeliculaService } from "src/services/pelicula.service";
-import { iPeliculaDto } from "src/dto/pelicula.dto";
-import { iGenero } from "src/modules/iGenero.dto";
+import { Body, Controller, Post, Get, UseGuards } from "@nestjs/common";
+import { iGeneroDTO } from "src/dto/iGeneroDTO.dto";
+import { JwtMiddlewareGuard } from "src/services/JWTGuard.service";
 import { GenerosService } from "src/services/generos.service";
 
 @Controller('/api/generos')
+// @UseGuards(JwtMiddlewareGuard)
 export class GenerosController {
   constructor(private readonly generosService: GenerosService) { }
 
   @Get()
-  async getGeneros(): Promise<iGenero[]> {
+  async getGeneros(): Promise<iGeneroDTO[]> {
     return await this.generosService.getAllGeneros();
   }
 
   @Post()
-  async crearGenero(@Body() body: iGenero): Promise<iGenero> {
+  async crearGenero(@Body() body: iGeneroDTO): Promise<iGeneroDTO> {
     return await this.generosService.crearGenero(body);
   }
 }

@@ -1,9 +1,11 @@
-import { Body, Controller, HttpException, HttpStatus, Post } from "@nestjs/common";
+import { Body, Controller, HttpException, HttpStatus, Post, UseGuards } from "@nestjs/common";
+import { JwtMiddlewareGuard } from "src/services/JWTGuard.service";
 import { LoginService } from "src/services/login.service";
-import * as bcrypt from 'bcryptjs'
+// import * as bcrypt from 'bcryptjs'
 
 
 @Controller('/auth')
+// @UseGuards(JwtMiddlewareGuard)
 export class LoginController {
   constructor(private loginService: LoginService) { }
 
