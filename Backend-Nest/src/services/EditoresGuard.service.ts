@@ -4,7 +4,8 @@ import { Observable } from "rxjs";
 
 @Injectable()
 export class EditoresGuard implements CanActivate {
-  constructor(private readonly JwtService: JwtService) { }
+  // constructor(private readonly JwtService: JwtService) { }
+  constructor() { }
 
   canActivate(context: ExecutionContext): boolean | Promise<boolean> | Observable<boolean> {
     const request = context.switchToHttp().getRequest();
