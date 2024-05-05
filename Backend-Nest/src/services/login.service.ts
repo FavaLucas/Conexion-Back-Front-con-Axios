@@ -1,10 +1,10 @@
 
 import { Injectable } from "@nestjs/common";
 import { JwtService } from "@nestjs/jwt";
-import * as bcrypt from 'bcryptjs'
 import { iUsuarioDTO } from "src/dto/iUsuarioDTO.dto";
+// import * as bcrypt from 'bcryptjs'
 
-let passAlmacenado = '';
+// let passAlmacenado = '';
 // bcrypt.hash('lucas', 8).then((valor) => (passAlmacenado = valor));
 
 @Injectable()

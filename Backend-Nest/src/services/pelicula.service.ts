@@ -55,7 +55,6 @@ export class PeliculaService {
       fechaLanzamiento: result['fechaLanzamiento'],
     };
 
-
   };
 
 
