@@ -25,11 +25,17 @@ export class LoginService {
         roles: ['User'],
       }
     };
+    if (username === 'mario' && password === 'mario') {
+      return {
+        username: 'kevin',
+        roles: ['Editor'],
+      }
+    };
     return false;
   }
 
   login(user: iUsuarioDTO) {
-    const payload = { user };
+    const payload =  user ;
     return {
       accessToken: this.jwtService.sign(payload),
     }

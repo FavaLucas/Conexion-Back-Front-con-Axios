@@ -7,12 +7,14 @@ import { EditoresGuard } from "src/services/EditoresGuard.service";
 // import { iPeliculas } from "src/modules/iPelicula.dto";
 
 @Controller('/api/peliculas')
-// @UseGuards(JwtMiddlewareGuard)
+// Guard utilizado a nivel controlador
+@UseGuards(JwtMiddlewareGuard)
 export class PeliculaController {
   constructor(private readonly peliculaService: PeliculaService) { }
 
   @Post()
-  // @UseGuards(EditoresGuard)
+  // Guard utilizado a nivel Endpoint
+  @UseGuards(EditoresGuard)
   async crearPelicula(@Body() nuevaPelicula: iPeliculaDTO): Promise<iPeliculaDTO> {
     return await this.peliculaService.crearPelicula(nuevaPelicula);
   }

@@ -1,21 +1,20 @@
-import { CanActivate, ExecutionContext } from "@nestjs/common";
+import { Injectable, CanActivate, ExecutionContext } from "@nestjs/common";
 import { JwtService } from "@nestjs/jwt";
 import { Observable } from "rxjs";
 
+@Injectable()
 export class EditoresGuard implements CanActivate {
   constructor(private readonly JwtService: JwtService) { }
 
   canActivate(context: ExecutionContext): boolean | Promise<boolean> | Observable<boolean> {
     const request = context.switchToHttp().getRequest();
 
-
     try {
-      const UsuarioRequest = request.user;
+      const usuarioRequest = request.user;
       let esEditor = false;
-      
-      if (UsuarioRequest.roles) {
-        UsuarioRequest.roles.forEach((rol) => {
-          if (rol === 'editor' || rol === 'Admin') {
+      if (usuarioRequest.roles) {
+        usuarioRequest.roles.forEach((rol) => {
+          if (rol === 'Editor' || rol === 'Admin') {
             esEditor = true;
           }
         });
@@ -23,10 +22,14 @@ export class EditoresGuard implements CanActivate {
       return esEditor;
     } catch (error) {
       return false;
-    }
-  }
-
+    };
+  };
 }
+
+
+
+
+
 
 
 

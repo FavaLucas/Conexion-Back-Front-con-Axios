@@ -20,18 +20,16 @@ export class JwtMiddlewareGuard implements CanActivate {
       return false;
     }
 
-    // En caso de recibir un token, lo decodificamos y lo guardamos 
-    const decodedToken = this.JwtService.decode(token);
-    
-    // Si no existe token decodificado retorno false
-    if(!decodedToken){
+    try {
+      // En caso de recibir un token, lo decodificamos y lo guardamos
+      const decodedToken = this.JwtService.decode(token);
+      // Asigno decodedToken a reques.user
+      request.user = decodedToken;
+      return true;
+    } catch (error) {
       return false;
     }
 
-    // Asigno decodedToken a reques.user
-    request.user = decodedToken;
-
-    return true;
   }
 
   // Recibo el token de autorizacion desde el cliente o postman (El bearer que ingresamos en postman)

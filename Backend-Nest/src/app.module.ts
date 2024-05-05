@@ -5,11 +5,12 @@ import { PeliculaController } from './controllers/pelicula.controller';
 import { PeliculaService } from './services/pelicula.service';
 import { LoginController } from './controllers/login.controller';
 import { LoginService } from './services/login.service';
-import { JwtModule } from '@nestjs/jwt';
 import { GenerosController } from './controllers/generos.controller';
 import { GenerosService } from './services/generos.service';
 import { DatabaseService } from './services/db.services';
 import { JwtMiddlewareGuard } from './services/JWTGuard.service';
+import { JwtModule } from '@nestjs/jwt';
+import { EditoresGuard } from './services/EditoresGuard.service';
 
 @Module({
   imports: [JwtModule.register({
@@ -18,6 +19,6 @@ import { JwtMiddlewareGuard } from './services/JWTGuard.service';
     
   })],
   controllers: [AppController, PeliculaController, LoginController, GenerosController],
-  providers: [AppService, PeliculaService, LoginService, GenerosService, DatabaseService, JwtMiddlewareGuard],
+  providers: [AppService, PeliculaService, LoginService, GenerosService, DatabaseService, JwtMiddlewareGuard, EditoresGuard],
 })
 export class AppModule {}
