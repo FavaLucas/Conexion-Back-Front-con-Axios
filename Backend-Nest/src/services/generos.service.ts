@@ -5,6 +5,7 @@ import { DatabaseService } from "./db.services";
 import generosQueries from "./queries/generos.queries";
 import { QueryResult, ResultSetHeader, RowDataPacket } from "mysql2";
 import { Pool, createPool, PoolConnection, FieldPacket } from 'mysql2/promise'
+import { throwError } from "rxjs";
 
 @Injectable()
 export class GenerosService {
@@ -39,10 +40,18 @@ export class GenerosService {
 
 
   async eliminarGenero(generoId: number): Promise<void> {
-    const resultQuery: ResultSetHeader = await this.dbService.executeQuery(generosQueries.delete, [generoId]);
-    if (resultQuery.affectedRows == 0) {
-      throw new HttpException("No se pudo eliminar el Genero por que no existe dicho Id", HttpStatus.NOT_FOUND)
-    };
+    try {
+      const resultQuery: ResultSetHeader = await this.dbService.executeQuery(generosQueries.delete, [generoId]);
+      if (resultQuery.affectedRows == 0) {
+        throw new HttpException("No se pudo eliminar el Genero por que no existe dicho Id", HttpStatus.NOT_FOUND)
+      };
+    } catch (error) {
+      if (error.errnumero == 1451) {
+        // Error 409 conflicto entre lo que se quiere eliminar y lo que hay en la base de datos
+        throw new HttpException('No se pudo eliminar genero ya que esta referenciado por otro registro', HttpStatus.CONFLICT);
+      }
+      throw new HttpException(`Error eliminando genero: ${error.sqlMessage}`, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
   };
 
 
