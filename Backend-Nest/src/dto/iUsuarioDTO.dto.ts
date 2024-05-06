@@ -1,6 +1,6 @@
 export interface iUsuarioDTO {
   id?:number;
-  user?: string; 
+  username?: string; 
   password?: string;
   roles?: [];
 }

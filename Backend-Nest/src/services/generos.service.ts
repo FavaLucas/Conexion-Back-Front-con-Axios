@@ -1,5 +1,5 @@
 
-import { Injectable } from "@nestjs/common";
+import { HttpException, HttpStatus, Injectable } from "@nestjs/common";
 import { iGeneroDTO } from "src/dto/iGeneroDTO.dto";
 import { DatabaseService } from "./db.services";
 import generosQueries from "./queries/generos.queries";
@@ -23,10 +23,27 @@ export class GenerosService {
 
   async crearGenero(genero: iGeneroDTO): Promise<iGeneroDTO> {
     const resultQuery: ResultSetHeader = await this.dbService.executeQuery(generosQueries.insert, [genero.generoId, genero.nombreGenero]);
-
     return {
       generoId: resultQuery.insertId,
       nombreGenero: genero.nombreGenero,
     };
   };
+
+  async actualizarGenero(generoId: number, genero: iGeneroDTO): Promise<iGeneroDTO> {
+    const resultQuery: ResultSetHeader = await this.dbService.executeQuery(generosQueries.update, [genero.nombreGenero, generoId]);
+    if (resultQuery.affectedRows == 1) {
+      return genero;
+    }
+    throw new HttpException("No se pudo actualizar el Genero ya que no se encontro el Id", HttpStatus.NOT_FOUND)
+  };
+
+
+  async eliminarGenero(generoId: number): Promise<void> {
+    const resultQuery: ResultSetHeader = await this.dbService.executeQuery(generosQueries.delete, [generoId]);
+    if (resultQuery.affectedRows == 0) {
+      throw new HttpException("No se pudo eliminar el Genero por que no existe dicho Id", HttpStatus.NOT_FOUND)
+    };
+  };
+
+
 }

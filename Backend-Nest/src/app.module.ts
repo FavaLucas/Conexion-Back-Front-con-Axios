@@ -12,10 +12,11 @@ import { JwtMiddlewareGuard } from './services/JWTGuard.service';
 import { JwtModule } from '@nestjs/jwt';
 import { EditoresGuard } from './services/EditoresGuard.service';
 
+// La clave secreta es la clave que nosotros definimos para encriptar. Suelen venir en certificados. Nosotros ponemos esta al azar para poder hacer el ejercicio. Suelen ser largas.
 @Module({
   imports: [JwtModule.register({
-    secret:'asdas321654as3d21zsdaSDAS',
-    signOptions: {expiresIn: '1h'},
+    secret:'asdas321654as3d216532as1fd3214332f132d132d1fv31s56d4q98d7as431casdacxcvgytrbtyhzsdaSDAS',
+    signOptions: {expiresIn: '1h', algorithm: 'RS256'},
     
   })],
   controllers: [AppController, PeliculaController, LoginController, GenerosController],

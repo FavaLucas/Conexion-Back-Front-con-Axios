@@ -1,9 +1,11 @@
-import { Body, Controller, Delete, Get, HttpStatus, Param, ParseIntPipe, Patch, Post, UseGuards } from "@nestjs/common";
+import { Body, Controller, Delete, Get, HttpStatus, Param, ParseIntPipe, Patch, Post, Req, UseGuards } from "@nestjs/common";
 // import { iPelicula } from "src/modules/iPelicula.module";
 import { PeliculaService } from "src/services/pelicula.service";
 import { iPeliculaDTO } from "src/dto/iPeliculaDTO.dto";
 import { JwtMiddlewareGuard } from "src/services/JWTGuard.service";
 import { EditoresGuard } from "src/services/EditoresGuard.service";
+import { Request } from "express";
+
 // import { iPeliculas } from "src/modules/iPelicula.dto";
 
 @Controller('/api/peliculas')
@@ -14,8 +16,10 @@ export class PeliculaController {
 
   @Post()
   // Guard utilizado a nivel Endpoint
+  // Revisar como es el correcto uso de @Req() para la propagacion de datos
   @UseGuards(EditoresGuard)
-  async crearPelicula(@Body() nuevaPelicula: iPeliculaDTO): Promise<iPeliculaDTO> {
+  async crearPelicula(@Body() nuevaPelicula: iPeliculaDTO, @Req() request: Request): Promise<iPeliculaDTO> {
+    console.log(request['user']);
     return await this.peliculaService.crearPelicula(nuevaPelicula);
   }
 
@@ -25,14 +29,16 @@ export class PeliculaController {
   }
 
   @Get('/:id')
-  async getPeliculaById(@Param('id', new ParseIntPipe({errorHttpStatusCode: HttpStatus.BAD_REQUEST,})) idBuscado: number): Promise<iPeliculaDTO> {
+  async getPeliculaById(@Param('id', new ParseIntPipe({ errorHttpStatusCode: HttpStatus.BAD_REQUEST, })) idBuscado: number): Promise<iPeliculaDTO> {
     return await this.peliculaService.getPeliculaById(idBuscado);
   }
 
 
 
-  
-  
+
+
+
+
   // @Delete()
   // deletePeliculasById(@Body() peliDTO: iPeliculaDto): iPelicula[] {
   //   try {
@@ -41,13 +47,13 @@ export class PeliculaController {
   //     console.log(error)
   //   }
   // }
-  
+
   // @Patch()
   // actualizarPelicula(@Body() peliDTO: iPeliculaDto): iPelicula {
   //   console.log(this.peliculaService.actualizarPelicula(peliDTO));
   //   return this.peliculaService.actualizarPelicula(peliDTO);
   // }
-  
+
   // Metodo que funciona sobre el Arreglo peliculaDB Hardcodeado - NO UTILIZAR
   // @Get()
   // getPeliculas(): iPelicula[] {

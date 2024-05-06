@@ -35,7 +35,7 @@ export class LoginService {
   }
 
   login(user: iUsuarioDTO) {
-    const payload =  user ;
+    const payload =  {username: user.username} ;
     return {
       accessToken: this.jwtService.sign(payload),
     }

@@ -44,7 +44,6 @@ export class PeliculaService {
       throw new NotFoundException(`No existe una pelicula con id: ${idBuscado}`);
     }
     const result = resultQuery[0];
-    
 
     return {
       peliculaId: result['peliculaId'],
