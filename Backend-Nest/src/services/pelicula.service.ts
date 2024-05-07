@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from "@nestjs/common";
+import { HttpException, HttpStatus, Injectable, NotFoundException } from "@nestjs/common";
 // import { iPelicula } from "src/modules/iPelicula.module";
 import { iPeliculaDTO } from "src/dto/iPeliculaDTO.dto";
 import { ResultSetHeader, RowDataPacket } from "mysql2";
@@ -53,6 +53,27 @@ export class PeliculaService {
       duracion: result['duracion'],
       fechaLanzamiento: result['fechaLanzamiento'],
     };
+  }
+    async actualizarPelicula(peliculaId: number, pelicula: iPeliculaDTO): Promise<iPeliculaDTO> {
+      const resultQuery: ResultSetHeader = await this.dbService.executeQuery(peliculasQueries.update, [pelicula.titulo, peliculaId]);
+      if (resultQuery.affectedRows == 1) {
+        return pelicula;
+      }
+      throw new HttpException("No se pudo actualizar la Pelicula ya que no se encontro el Id", HttpStatus.NOT_FOUND)
+    };
+    async eliminarPelicula(peliculaId: number): Promise<void> {
+      try {
+        const resultQuery: ResultSetHeader = await this.dbService.executeQuery(peliculasQueries.deleteById, [peliculaId]);
+        if (resultQuery.affectedRows == 0) {
+          throw new HttpException("No se pudo eliminar la Pelicula por que no existe dicho Id", HttpStatus.NOT_FOUND)
+        };
+      } catch (error) {
+        if (error.errnumero == 1451) {
+          // Error 409 conflicto entre lo que se quiere eliminar y lo que hay en la base de datos
+          throw new HttpException('No se pudo eliminar la Pelicula ya que esta referenciado por otro registro', HttpStatus.CONFLICT);
+        }
+        throw new HttpException(`Error eliminando Pelicula: ${error.sqlMessage}`, HttpStatus.INTERNAL_SERVER_ERROR);
+      }
 
   };
 

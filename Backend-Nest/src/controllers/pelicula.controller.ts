@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, HttpStatus, Param, ParseIntPipe, Patch, Post, Req, UseGuards } from "@nestjs/common";
+import { Body, Controller, Delete, Get, HttpStatus, Param, ParseIntPipe, Patch, Post, Put, Req, UseGuards } from "@nestjs/common";
 // import { iPelicula } from "src/modules/iPelicula.module";
 import { PeliculaService } from "src/services/pelicula.service";
 import { iPeliculaDTO } from "src/dto/iPeliculaDTO.dto";
@@ -10,14 +10,14 @@ import { Request } from "express";
 
 @Controller('/api/peliculas')
 // Guard utilizado a nivel controlador
-@UseGuards(JwtMiddlewareGuard)
+// @UseGuards(JwtMiddlewareGuard)
 export class PeliculaController {
   constructor(private readonly peliculaService: PeliculaService) { }
 
   @Post()
   // Guard utilizado a nivel Endpoint
   // Revisar como es el correcto uso de @Req() para la propagacion de datos
-  @UseGuards(EditoresGuard)
+  // @UseGuards(EditoresGuard)
   async crearPelicula(@Body() nuevaPelicula: iPeliculaDTO, @Req() request: Request): Promise<iPeliculaDTO> {
     console.log(request['user']);
     return await this.peliculaService.crearPelicula(nuevaPelicula);
@@ -33,7 +33,15 @@ export class PeliculaController {
     return await this.peliculaService.getPeliculaById(idBuscado);
   }
 
-
+  @Put('/:peliculaId')
+  async actualizarGenero(@Body() body: iPeliculaDTO, @Param('peliculaId') peliculaId: number): Promise<iPeliculaDTO> {
+    return await this.peliculaService.actualizarPelicula(peliculaId, body);
+  };
+  @Delete('/:peliculaId')
+  async eliminarGenero(@Param('peliculaId') peliculaId: number): Promise<void> {
+    // retornar codigo 204
+    return await this.peliculaService.eliminarPelicula(peliculaId);
+  }
 
 
 

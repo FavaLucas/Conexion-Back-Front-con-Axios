@@ -5,13 +5,18 @@ export class iPeliculaDTO {
   @IsOptional()
   peliculaId?:number;
   @IsString()
+  @IsOptional()
   titulo?: string;
   @IsString()
+  @IsOptional()
   sinopsis?: string;
   @IsString()
+  @IsOptional()
   imagen?: string;
   @IsInt()
+  @IsOptional()
   duracion?: number;
   @IsString()
+  @IsOptional()
   fechaLanzamiento?: string;
 } 
