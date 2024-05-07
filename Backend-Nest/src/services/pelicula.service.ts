@@ -61,12 +61,13 @@ export class PeliculaService {
       }
       throw new HttpException("No se pudo actualizar la Pelicula ya que no se encontro el Id", HttpStatus.NOT_FOUND)
     };
-    async eliminarPelicula(peliculaId: number): Promise<void> {
+    async eliminarPelicula(peliculaId: number): Promise<void| string>  {
       try {
         const resultQuery: ResultSetHeader = await this.dbService.executeQuery(peliculasQueries.deleteById, [peliculaId]);
         if (resultQuery.affectedRows == 0) {
           throw new HttpException("No se pudo eliminar la Pelicula por que no existe dicho Id", HttpStatus.NOT_FOUND)
-        };
+        } else {return ('Pelicula eliminada con exito');}
+        ;
       } catch (error) {
         if (error.errnumero == 1451) {
           // Error 409 conflicto entre lo que se quiere eliminar y lo que hay en la base de datos
@@ -74,7 +75,7 @@ export class PeliculaService {
         }
         throw new HttpException(`Error eliminando Pelicula: ${error.sqlMessage}`, HttpStatus.INTERNAL_SERVER_ERROR);
       }
-
+      
   };
 
 

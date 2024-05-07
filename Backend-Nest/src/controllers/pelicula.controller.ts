@@ -38,7 +38,7 @@ export class PeliculaController {
     return await this.peliculaService.actualizarPelicula(peliculaId, body);
   };
   @Delete('/:peliculaId')
-  async eliminarGenero(@Param('peliculaId') peliculaId: number): Promise<void> {
+  async eliminarGenero(@Param('peliculaId') peliculaId: number): Promise<void | string> {
     // retornar codigo 204
     return await this.peliculaService.eliminarPelicula(peliculaId);
   }

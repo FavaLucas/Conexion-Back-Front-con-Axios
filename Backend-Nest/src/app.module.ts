@@ -16,7 +16,7 @@ import { EditoresGuard } from './services/EditoresGuard.service';
 @Module({
   imports: [JwtModule.register({
     secret:'asdas321654as3d216532as1fd3214332f132d132d1fv31s56d4q98d7as431casdacxcvgytrbtyhzsdaSDAS',
-    signOptions: {expiresIn: '1h', algorithm: 'RS256'},
+    signOptions: {expiresIn: '1h'},
     
   })],
   controllers: [AppController, PeliculaController, LoginController, GenerosController],

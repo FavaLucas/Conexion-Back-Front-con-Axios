@@ -9,7 +9,7 @@ import { LoginService } from "src/services/login.service";
 export class LoginController {
   constructor(private loginService: LoginService) { }
 
-  @Post('login')
+  @Post('/login')
   async login(@Body() body: { username: string, password: string }) {
     const user = await this.loginService.validateUser(body.username, body.password);
     if (!user) {
