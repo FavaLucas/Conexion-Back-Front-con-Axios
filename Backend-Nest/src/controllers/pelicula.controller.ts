@@ -23,6 +23,11 @@ export class PeliculaController {
     return await this.peliculaService.crearPelicula(nuevaPelicula);
   }
 
+  @Get('/actor/:id')
+  async getActoresPorPelicula(@Param('id') actorId: number): Promise<any[]> {
+    return await this.peliculaService.getActoresPorPelicula(actorId);
+  }
+
   @Get()
   async getAllPeliculas(): Promise<iPeliculaDTO[]> {
     return await this.peliculaService.getAllPeliculas();

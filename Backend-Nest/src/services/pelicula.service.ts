@@ -80,7 +80,15 @@ export class PeliculaService {
 
   };
 
-
+  async getActoresPorPelicula(actorId: number ): Promise<any[]> {
+    const resultQuery: RowDataPacket[] = await this.dbService.executeSelect(peliculasQueries.selectActores, [actorId]);
+    const resultActores = resultQuery.map((rs: RowDataPacket) => {
+      return {
+        nombreActor: rs['nombreCompleto'],
+      };
+    });
+    return resultActores;
+  };
 
 
 

@@ -13,6 +13,7 @@ export class GenerosController {
     return await this.generosService.getAllGeneros();
   };
 
+
   @Post()
   async crearGenero(@Body() body: iGeneroDTO): Promise<iGeneroDTO> {
     return await this.generosService.crearGenero(body);
