@@ -24,7 +24,7 @@ export class GenerosController {
   };
 
   @Delete('/:generoId')
-  async eliminarGenero(@Param('/:generoId') generoId: number): Promise<void> {
+  async eliminarGenero(@Param('generoId') generoId: number): Promise<void> {
     // retornar codigo 204
     return await this.generosService.eliminarGenero(generoId);
   }
