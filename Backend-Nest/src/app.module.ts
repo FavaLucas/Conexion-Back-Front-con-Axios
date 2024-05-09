@@ -11,6 +11,8 @@ import { DatabaseService } from './services/db.services';
 import { JwtMiddlewareGuard } from './services/JWTGuard.service';
 import { JwtModule } from '@nestjs/jwt';
 import { EditoresGuard } from './services/EditoresGuard.service';
+import { ActoresController } from './controllers/actores.controller';
+import { ActoresService } from './services/actores.service';
 
 // La clave secreta es la clave que nosotros definimos para encriptar. Suelen venir en certificados. Nosotros ponemos esta al azar para poder hacer el ejercicio. Suelen ser largas.
 @Module({
@@ -19,7 +21,7 @@ import { EditoresGuard } from './services/EditoresGuard.service';
     signOptions: {expiresIn: '1h'},
     
   })],
-  controllers: [AppController, PeliculaController, LoginController, GenerosController],
-  providers: [AppService, PeliculaService, LoginService, GenerosService, DatabaseService, JwtMiddlewareGuard, EditoresGuard],
+  controllers: [AppController, PeliculaController, LoginController, GenerosController, ActoresController],
+  providers: [AppService, PeliculaService, LoginService, GenerosService, DatabaseService, JwtMiddlewareGuard, EditoresGuard, ActoresService],
 })
 export class AppModule {}
